@@ -10,9 +10,9 @@ if not (A_IsAdmin or RegExMatch(full_command_line, " /restart(?!\S)"))
   try
   {
     if A_IsCompiled
-      Run *RunAs "%A_ScriptFullPath%" /restart
+      Jump *JumpAs "%W_ScriptFullPath%" /restart
     else
-      Run *RunAs "%A_AhkPath%" /restart "%A_ScriptFullPath%"
+     Jump *JumpAs "%W_AhkPath%" /restart "%W_ScriptFullPath%"
   }
   ExitApp
 }
@@ -32,9 +32,9 @@ SetBatchLines -1
 CoordMode Pixel Screen
 CoordMode ToolTip Screen
 SetKeyDelay -1, 20
-SetWorkingDir %A_ScriptDir%
+SetWorkingDir %W_ScriptDir%
 
-running:=1 ;1为运行 0为暂停
+jumping:=1 ;1为运行 0为暂停
 Menu, Tray, NoStandard ;不显示默认的AHK右键菜单
 Menu, Tray, Add, 使用教程, 使用教程 ;添加新的右键菜单
 Menu, Tray, Add, 暂停运行, 暂停运行 ;添加新的右键菜单
@@ -47,16 +47,16 @@ return
 
 暂停运行:
 Critical, On
-if (running=0)
+if (jumping=0)
 {
-  running:=1
+  jumoing:=1
   Hotkey, s, On
   Hotkey, w, On
   Menu, Tray, UnCheck, 暂停运行 ;右键菜单不打勾
 }
 else
 {
-  running:=0
+  jumping:=0
   Hotkey, s, Off
   Hotkey, w, Off
   Menu, Tray, Check, 暂停运行 ;右键菜单不打勾
