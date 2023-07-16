@@ -50,15 +50,15 @@ Critical, On
 if (running=0)
 {
   running:=1
-  Hotkey, a, On
-  Hotkey, d, On
+  Hotkey, s, On
+  Hotkey, w, On
   Menu, Tray, UnCheck, 暂停运行 ;右键菜单不打勾
 }
 else
 {
   running:=0
-  Hotkey, a, Off
-  Hotkey, d, Off
+  Hotkey, s, Off
+  Hotkey, w, Off
   Menu, Tray, Check, 暂停运行 ;右键菜单不打勾
 }
 Critical, Off
@@ -67,66 +67,66 @@ return
 退出软件:
 ExitApp
 
-~$d:: ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<改键改字母成你需要的按键 右
-if (热键开关d=0)
+~$w:: ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<改键改字母成你需要的按键 上
+if (热键开关w=0)
 {
   return
 }
-右移动:
-热键开关a:=0
-if GetKeyState("a", "P")
+上移动:
+热键开关s:=0
+if GetKeyState("s", "P")
 {
-  Send {a Up}
+  Send {s Up}
 }
 Critical On
 loop
 {
-  if !GetKeyState("d", "P")
+  if !GetKeyState("w", "P")
   {
-    if GetKeyState("a", "P")
+    if GetKeyState("s", "P")
     {
       反向:=0
       break
     }
     else
     {
-      热键开关a:=1
+      热键开关s:=1
       Critical Off
       return
     }
   }
-  else if !GetKeyState("a", "P") and (反向=1)
+  else if !GetKeyState("s", "P") and (反向=1)
   {
     反向:=0
   }
-  else if GetKeyState("a", "P") and (反向!=1)
+  else if GetKeyState("s", "P") and (反向!=1)
   {
     break
   }
 }
-Send {a Down}
+Send {s Down}
 反向:=1
-热键开关a:=1
+热键开关s:=1
 Critical Off
-goto 左移动
+goto 下移动
 
-~$a:: ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<改键改字母成你需要的按键 左
-if (热键开关d=0)
+~$s:: ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<改键改字母成你需要的按键 下
+if (热键开关w=0)
 {
   return
 }
-左移动:
-热键开关a:=0
-if GetKeyState("d", "P")
+下移动:
+热键开关s:=0
+if GetKeyState("w", "P")
 {
-  Send {d Up}
+  Send {w Up}
 }
 loop
 {
   Critical On
-  if !GetKeyState("a", "P")
+  if !GetKeyState("s", "P")
   {
-    if GetKeyState("d", "P")
+    if GetKeyState("w", "P")
     {
       反向:=0
       Critical Off
@@ -135,21 +135,21 @@ loop
     else
     {
       Critical Off
-      热键开关d:=1
+      热键开关w:=1
       return
     }
   }
-  else if !GetKeyState("d", "P") and (反向=1)
+  else if !GetKeyState("w", "P") and (反向=1)
   {
     反向:=0
   }
-  else if GetKeyState("d", "P") and (反向!=1)
+  else if GetKeyState("w", "P") and (反向!=1)
   {
     break
   }
 }
-Send {d Down}
+Send {w Down}
 反向:=1
-热键开关d:=1
+热键开关w:=1
 Critical Off
-goto 右移动
+goto 上移动
